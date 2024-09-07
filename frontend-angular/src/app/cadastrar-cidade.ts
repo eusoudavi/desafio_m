@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api';
 
 //-------------------------------------------------------------------------------------
 /** Tela para cadastro de cidades */
-//-------------------------------------------------------------------------------------    
+//-------------------------------------------------------------------------------------
 @Component({
     selector: 'cadastrar-cidade',
     templateUrl: 'cadastrar-cidade.html',
@@ -18,13 +18,13 @@ export class CadastrarCidade {
 
     //-------------------------------------------------------
     // Parâmetro de entrada para o componente
-    //-------------------------------------------------------    
-    @Input() public cidade: Cidade = new Cidade();   
+    //-------------------------------------------------------
+    @Input() public cidade: Cidade = new Cidade();
 
     //-------------------------------------------------------
     // Evento lançado ao fechar a janela
-    //-------------------------------------------------------    
-    @Output('onClose') private eventoFechaJanela = new EventEmitter<boolean>();        
+    //-------------------------------------------------------
+    @Output('onClose') private eventoFechaJanela = new EventEmitter<boolean>();
 
     //--------------------------------------------------------------
     /** Construtor. Recebe os services usados pelo componente */
@@ -33,27 +33,35 @@ export class CadastrarCidade {
 
     //-------------------------------------------------------------------------------------
     /** Método chamado ao clicar no botao 'salvar' */
-    //-------------------------------------------------------------------------------------    
+    //-------------------------------------------------------------------------------------
     public salvar() {
-        // Salva a cidade no back end
-        this.service.salvar(this.cidade).subscribe(retorno => {                        
-            if(this.cidade.id) {
-                //this.messageService.add({ severity: 'success', summary: 'Info', detail: `Cidade '${this.cidade.nome}' alterada com sucesso!` });
-            } else {
-                //this.messageService.add({ severity: 'success', summary: 'Info', detail: `Cidade '${this.cidade.nome}' cadastrada com sucesso!` });
-            }
-        });
 
-        // Lança evento para fechar a janela
-        this.eventoFechaJanela.emit(true) ;
+        this.service.salvar(this.cidade)
+          .subscribe({
+            next: (result): void => {
+              console.log(result)
+              this.messageService.add({ severity: 'success', summary: 'Info', detail: `Cidade '${this.cidade.nome}' cadastrada com sucesso!` });
+            },
+            error: (error): void => {
+              console.log(error);
+              this.messageService.add({ severity: 'error', summary: 'Erro', detail: `Cidade '${this.cidade.nome}' não foi salva!` });
+            },
+            complete: (): void => {
+              this.cancelar();
+              this.reloadPage();
+            }
+          });
     }
 
     //-------------------------------------------------------------------------------------
     /** Método chamado ao clicar no botao 'cancelar' */
-    //-------------------------------------------------------------------------------------    
+    //-------------------------------------------------------------------------------------
     public cancelar() {
-        // Lança evento para fechar a janela
         this.eventoFechaJanela.emit(false) ;
+    }
+
+    public reloadPage(): void {
+      setTimeout(() => window.location.reload(), 100);
     }
 
 }
