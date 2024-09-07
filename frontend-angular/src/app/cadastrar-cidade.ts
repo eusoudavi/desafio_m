@@ -34,7 +34,7 @@ export class CadastrarCidade {
     //-------------------------------------------------------------------------------------
     /** Método chamado ao clicar no botao 'salvar' */
     //-------------------------------------------------------------------------------------
-    public salvar() {
+    public salvar(): void {
 
         this.service.salvar(this.cidade)
           .subscribe({
@@ -56,7 +56,7 @@ export class CadastrarCidade {
     //-------------------------------------------------------------------------------------
     /** Método chamado ao clicar no botao 'cancelar' */
     //-------------------------------------------------------------------------------------
-    public cancelar() {
+    public cancelar(): void {
         this.eventoFechaJanela.emit(false) ;
     }
 

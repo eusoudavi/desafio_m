@@ -1,9 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
-import { ImportsModule } from './imports';
-import { Cidade } from '@domain/cidade';
-import { ProjetoService } from '@service/projeto-service';
-import { CadastrarCidade } from './cadastrar-cidade';
-import { MessageService } from 'primeng/api';
+import {Component} from '@angular/core';
+import {ImportsModule} from './imports';
+import {Cidade} from '@domain/cidade';
+import {ProjetoService} from '@service/projeto-service';
+import {CadastrarCidade} from './cadastrar-cidade';
+import {MessageService} from 'primeng/api';
 
 //-------------------------------------------------------------------------------------
 /** Tela para listar cidades */

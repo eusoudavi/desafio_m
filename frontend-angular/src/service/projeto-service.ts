@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cidade } from '@domain/cidade';
 import { Observable, from } from 'rxjs';
+import {environment} from "../app/environments/environment";
 
 @Injectable()
 export class ProjetoService {
 
-  // private urlBase: string = `${environment.apiUrl}${environment.urlIngredientes}`;
-  private urlBase: string = 'http://localhost:8080/mirante/cidades'
+  private urlBase: string = `${environment.apiUrl}${environment.urlCidades}`;
 
   constructor(private http: HttpClient) {}
 
@@ -15,6 +15,7 @@ export class ProjetoService {
     /** Recupera a lista de cidades */
     //------------------------------------------------
     pesquisarCidades(): Observable<Cidade[]> {
+      console.log(this.urlBase)
       return this.http.get<Cidade[]>(this.urlBase);
     }
 
